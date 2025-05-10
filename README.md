@@ -1,2 +1,15 @@
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/Anakharsis9/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Anakharsis9/frontend-project-11/actions)
+# RSS агрегатор
+
+RSS-агрегатор — это приложение, которое автоматически собирает и отображает обновления с различных сайтов через RSS-фиды, позволяя пользователям удобно читать свежие статьи, новости и блоги в одном месте.
+
+## Setup
+
+```sh
+make install
+```
+
+## Run
+
+```sh
+make develop
+```
