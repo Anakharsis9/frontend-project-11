@@ -7,7 +7,7 @@ const __dirname = dirname(__filename);
 export default {
   root: resolve(__dirname, './'),
   build: {
-    outDir: '../dist',
+    outDir: './dist',
   },
   server: {
     port: 8080,
