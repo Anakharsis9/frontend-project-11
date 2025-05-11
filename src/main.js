@@ -1,4 +1,6 @@
 import "./scss/styles.scss";
+import i18next from "i18next";
+import resources from "./locales/index.js";
 
 import { validateUrl } from "./form/validation.js";
 import { initView } from "./form/view.js";
@@ -16,28 +18,36 @@ const state = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const elements = {
-    form: document.querySelector(".rss-form"),
-    input: document.querySelector("#url-input"),
-    feedback: document.querySelector(".feedback")
-  };
+  i18next
+    .init({
+      lng: "ru",
+      debug: false,
+      resources
+    })
+    .then(() => {
+      const elements = {
+        form: document.querySelector(".rss-form"),
+        input: document.querySelector("#url-input"),
+        feedback: document.querySelector(".feedback")
+      };
 
-  const watchedState = initView(state, elements);
+      const watchedState = initView(state, elements);
 
-  elements.form.addEventListener("submit", e => {
-    e.preventDefault();
-    const url = elements.input.value;
-    const existingUrls = state.feeds.map(feed => feed.url);
+      elements.form.addEventListener("submit", e => {
+        e.preventDefault();
+        const url = elements.input.value;
+        const existingUrls = state.feeds.map(feed => feed.url);
 
-    validateUrl(url, existingUrls).then(({ valid, message }) => {
-      if (!valid) {
-        watchedState.form.error = message;
-        watchedState.form.status = "invalid";
-        return;
-      }
+        validateUrl(url, existingUrls).then(({ valid, message }) => {
+          if (!valid) {
+            watchedState.form.error = message;
+            watchedState.form.status = "invalid";
+            return;
+          }
 
-      watchedState.feeds.push({ url });
-      watchedState.form.status = "submitted";
+          watchedState.feeds.push({ url });
+          watchedState.form.status = "submitted";
+        });
+      });
     });
-  });
 });

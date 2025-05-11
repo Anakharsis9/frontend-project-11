@@ -1,8 +1,10 @@
 import onChange from "on-change";
+import i18next from 'i18next';
+
 
 const renderError = (elements, message) => {
   elements.input.classList.add("is-invalid");
-  elements.feedback.textContent = message;
+  elements.feedback.textContent = i18next.t(message);
   elements.feedback.classList.remove("text-success");
   elements.feedback.classList.add("text-danger");
 };
