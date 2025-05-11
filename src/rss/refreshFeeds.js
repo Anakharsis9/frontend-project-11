@@ -10,10 +10,10 @@ export default function refreshFeeds(state) {
         const newPosts = posts.filter(post => !existingLinks.includes(post.link))
 
         if (newPosts.length > 0) {
-          state.posts = [...newPosts, ...state.posts,]
+          state.posts = [...newPosts, ...state.posts]
         }
       })
-      .catch(() => {})
+      .catch(() => {}),
   )
 
   return Promise.all(tasks)
