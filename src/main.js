@@ -1,14 +1,14 @@
-import "./scss/styles.scss";
-import i18next from "i18next";
-import resources from "./locales/index.js";
-import initApp from "./app.js";
+import './scss/styles.scss';
+import i18next from 'i18next';
+import resources from './locales/index.js';
+import initApp from './app.js';
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   i18next
     .init({
-      lng: "ru",
+      lng: 'ru',
       debug: false,
-      resources
+      resources,
     })
     .then(initApp);
 });

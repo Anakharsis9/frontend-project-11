@@ -1,6 +1,6 @@
 export default function renderModal(state, elements) {
   const postId = state.ui.modalPostId;
-  const post = state.posts.find(p => p.id === postId);
+  const post = state.posts.find((p) => p.id === postId);
   if (!post) return;
 
   elements.modal.title.textContent = post.title;

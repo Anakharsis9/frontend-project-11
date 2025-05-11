@@ -1,6 +1,6 @@
 export default function initPosts(state, elements) {
-  elements.postsContainer.addEventListener("click", e => {
-    const button = e.target.closest("button[data-id]");
+  elements.postsContainer.addEventListener('click', (e) => {
+    const button = e.target.closest('button[data-id]');
     if (!button) return;
 
     const postId = button.dataset.id;
