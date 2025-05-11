@@ -1,6 +1,6 @@
 import i18next from "i18next";
 
-export default function renderPosts(posts, elements) {
+export default function renderPosts(posts, ui, elements) {
   const container = elements.postsContainer;
   container.innerHTML = "";
 
@@ -34,12 +34,14 @@ export default function renderPosts(posts, elements) {
     );
 
     const link = document.createElement("a");
-    link.classList.add("fw-bold");
     link.setAttribute("href", post.link);
     link.setAttribute("target", "_blank");
     link.setAttribute("rel", "noopener noreferrer");
     link.setAttribute("data-id", post.id);
     link.textContent = post.title;
+
+    const isViewed = ui.viewedPostIds.includes(post.id);
+    link.classList.add(isViewed ? ("fw-normal", "link-secondary") : "fw-bold");
 
     const button = document.createElement("button");
     button.classList.add("btn", "btn-outline-primary", "btn-sm");
@@ -47,7 +49,7 @@ export default function renderPosts(posts, elements) {
     button.setAttribute("data-id", post.id);
     button.setAttribute("data-bs-toggle", "modal");
     button.setAttribute("data-bs-target", "#modal");
-    button.textContent = "Просмотр";
+    button.textContent = i18next.t("btn.show");
 
     item.appendChild(link);
     item.appendChild(button);

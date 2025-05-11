@@ -8,8 +8,11 @@ export default {
         loadFailed: "Ошибка загрузки или парсинга RSS"
       },
       successLoad: "RSS успешно загружен",
-      feedsTitle:'Фиды',
-      postsTitle: 'Посты'
+      feedsTitle: "Фиды",
+      postsTitle: "Посты",
+      btn: {
+        show: "Просмотр"
+      }
     }
   }
 };
