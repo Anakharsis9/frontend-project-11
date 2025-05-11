@@ -28,9 +28,9 @@ export default function initForm(state, elements) {
         state.posts = [...posts, ...state.posts];
         state.form.status = "submitted";
       })
-      .catch(() => {
+      .catch(error => {
         Object.assign(state.form, {
-          error: "errors.loadFailed",
+          error: error.message,
           status: "invalid"
         });
       });

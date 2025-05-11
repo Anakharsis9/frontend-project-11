@@ -2,10 +2,11 @@ export default {
   ru: {
     translation: {
       errors: {
-        required: "Поле обязательно для заполнения",
+        required: "Не должно быть пустым",
         invalidUrl: "Ссылка должна быть валидным URL",
         duplicate: "RSS уже существует",
-        loadFailed: "Ошибка загрузки или парсинга RSS"
+        invalidRss: "Ресурс не содержит валидный RSS",
+        network: "Ошибка сети"
       },
       successLoad: "RSS успешно загружен",
       feedsTitle: "Фиды",

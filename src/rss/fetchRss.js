@@ -8,5 +8,22 @@ export default function fetchRss(url) {
     .get(
       `${API_PROXY_URL}/get?disableCache=true&url=${encodeURIComponent(url)}`
     )
-    .then(response => parse(response.data.contents));
+    .then(response => {
+      try {
+        return parse(response.data.contents);
+      } catch {
+        const err = new Error("errors.invalidRss");
+        err.name = "ParserError";
+        throw err;
+      }
+    })
+    .catch(error => {
+      if (error.name === "ParserError") {
+        throw error;
+      }
+
+      const err = new Error("errors.network");
+      err.name = "NetworkError";
+      throw err;
+    });
 }
