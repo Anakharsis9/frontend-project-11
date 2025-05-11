@@ -6,10 +6,15 @@ const renderError = ({ input, feedback }, message) => {
   feedback.classList.remove("text-success");
   feedback.classList.add("text-danger");
 };
+const renderSuccess = ({ feedback }) => {
+  feedback.textContent = i18next.t("successLoad");
+  feedback.classList.add("text-success");
+};
 
 const clearError = ({ input, feedback }) => {
   input.classList.remove("is-invalid");
   feedback.textContent = "";
+  feedback.classList.remove("text-danger");
 };
 
 export default function renderForm(state, elements) {
@@ -29,6 +34,7 @@ export default function renderForm(state, elements) {
       form.reset();
       input.focus();
       clearError(elements);
+      renderSuccess(elements);
       break;
 
     default:

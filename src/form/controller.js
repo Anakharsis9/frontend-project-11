@@ -1,4 +1,6 @@
 import { validateUrl } from "./validation.js";
+import fetchRss from "@/rss/fetchRss.js";
+import normalizeData from "@/rss/normalize.js";
 
 export default function initForm(state, elements) {
   elements.form.addEventListener("submit", e => {
@@ -6,14 +8,31 @@ export default function initForm(state, elements) {
     const url = elements.input.value;
     const existingUrls = state.feeds.map(feed => feed.url);
 
-    validateUrl(url, existingUrls).then(({ valid, message }) => {
-      if (!valid) {
-        Object.assign(state.form, { error: message, status: "invalid" });
-        return;
-      }
+    validateUrl(url, existingUrls)
+      .then(({ valid, message }) => {
+        if (!valid) {
+          Object.assign(state.form, { error: message, status: "invalid" });
+          return Promise.resolve();
+        }
 
-      state.feeds.push({ url });
-      state.form.status = "submitted";
-    });
+        state.form.status = "valid";
+
+        return fetchRss(url);
+      })
+      .then(rawData => {
+        if (!rawData) return;
+
+        const { feed, posts } = normalizeData(rawData, url);
+
+        state.feeds = [feed, ...state.feeds];
+        state.posts = [...posts, ...state.posts];
+        state.form.status = "submitted";
+      })
+      .catch(() => {
+        Object.assign(state.form, {
+          error: "errors.loadFailed",
+          status: "invalid"
+        });
+      });
   });
 }
