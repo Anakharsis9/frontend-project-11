@@ -1,5 +1,5 @@
 install:
-	npm ci --legacy-peer-deps
+	npm ci
 
 develop:
 	npm run dev

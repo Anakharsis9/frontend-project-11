@@ -1,8 +1,8 @@
 export default function initModal(state, elements) {
-  const { modalEl } = elements.modal;
-  if (!modalEl) return;
+  const { modalEl } = elements.modal
+  if (!modalEl) return
 
   modalEl.addEventListener('hidden.bs.modal', () => {
-    state.ui.modalPostId = null;
-  });
+    state.ui.modalPostId = null
+  })
 }
