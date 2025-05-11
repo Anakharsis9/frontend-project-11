@@ -1,40 +1,37 @@
-import onChange from "on-change";
-import i18next from 'i18next';
+import i18next from "i18next";
 
-
-const renderError = (elements, message) => {
-  elements.input.classList.add("is-invalid");
-  elements.feedback.textContent = i18next.t(message);
-  elements.feedback.classList.remove("text-success");
-  elements.feedback.classList.add("text-danger");
+const renderError = ({ input, feedback }, message) => {
+  input.classList.add("is-invalid");
+  feedback.textContent = i18next.t(message);
+  feedback.classList.remove("text-success");
+  feedback.classList.add("text-danger");
 };
 
-const clearError = elements => {
-  elements.input.classList.remove("is-invalid");
-  elements.feedback.textContent = "";
+const clearError = ({ input, feedback }) => {
+  input.classList.remove("is-invalid");
+  feedback.textContent = "";
 };
 
-export const initView = (state, elements) => {
-  return onChange(state, function (path, value) {
-    if (path === "form.error") {
-      renderError(elements, value);
-    }
+export default function renderForm(state, elements) {
+  const { input, form } = elements;
+  const { status, error } = state.form;
 
-    if (path === "form.status") {
-      switch (value) {
-        case "invalid":
-          break;
-        case "valid":
-          clearError(elements);
-          break;
-        case "submitted":
-          elements.form.reset();
-          elements.input.focus();
-          clearError(elements);
-          break;
-        default:
-          break;
-      }
-    }
-  });
-};
+  switch (status) {
+    case "invalid":
+      renderError(elements, error);
+      break;
+
+    case "valid":
+      clearError(elements);
+      break;
+
+    case "submitted":
+      form.reset();
+      input.focus();
+      clearError(elements);
+      break;
+
+    default:
+      break;
+  }
+}
